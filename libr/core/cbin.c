@@ -2410,7 +2410,8 @@ R_API void r_core_bin_export_info_rad(RCore *core) {
 		SdbKv *kv;
 		r_cons_printf ("fs format\n");
 		// iterate over all keys
-		ls_foreach (db->ht->list, iter, kv) {
+		SdbList *ls = sdb_foreach_list (db, true);
+		ls_foreach (ls, iter, kv) {
 			char *k = kv->key;
 			char *v = kv->value;
 			char *dup = strdup (k);
@@ -2444,7 +2445,7 @@ R_API void r_core_bin_export_info_rad(RCore *core) {
 			}
 			free (dup);
 		}
-
+		ls_free (ls);
 	}
 }
 
